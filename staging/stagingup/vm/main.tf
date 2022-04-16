@@ -200,7 +200,7 @@ resource "aws_instance" "bastion" {
   ami                         = data.aws_ami.latest_amazon_linux.id
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.key2b.key_name
-  subnet_id                   = data.terraform_remote_state.network.outputs.public_subnet_ids[1]
+  subnet_id                   = data.terraform_remote_state.network.outputs.public_subnet_ids[0]
   security_groups             = [aws_security_group.bastion_sg.id]
   associate_public_ip_address = true
 
