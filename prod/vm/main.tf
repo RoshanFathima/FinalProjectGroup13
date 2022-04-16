@@ -46,6 +46,8 @@ resource "aws_instance" "my_amazon" {
   #count                       = data.terraform_remote_state.network.outputs.private_subnet_id
   ami                         = data.aws_ami.latest_amazon_linux.id
   instance_type               = var.instance_type
+  metadata_options { 
+  http_tokens = "required"
   key_name                    = aws_key_pair.key1.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[0]
   security_groups             = [aws_security_group.albsg.id, aws_security_group.web_sg.id]
@@ -86,6 +88,8 @@ resource "aws_instance" "my_amazon2" {
   #count                       = data.terraform_remote_state.network.outputs.private_subnet_id
   ami                         = data.aws_ami.latest_amazon_linux.id
   instance_type               = var.instance_type
+  metadata_options { 
+  http_tokens = "required"
   key_name                    = aws_key_pair.key2.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[1]
   security_groups             = [aws_security_group.web_sg.id, aws_security_group.albsg.id]
@@ -126,6 +130,8 @@ resource "aws_instance" "my_amazon3" {
   #count                       = data.terraform_remote_state.network.outputs.private_subnet_id
   ami                         = data.aws_ami.latest_amazon_linux.id
   instance_type               = var.instance_type
+  metadata_options { 
+  http_tokens = "required"
   key_name                    = aws_key_pair.key3.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[2]
   security_groups             = [aws_security_group.albsg.id,aws_security_group.web_sg.id]
@@ -199,6 +205,8 @@ resource "aws_security_group" "web_sg" {
 resource "aws_instance" "bastion" {
   ami                         = data.aws_ami.latest_amazon_linux.id
   instance_type               = var.instance_type
+  metadata_options { 
+  http_tokens = "required"
   key_name                    = aws_key_pair.key2b.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.public_subnet_ids[1]
   security_groups             = [aws_security_group.bastion_sg.id]
@@ -214,6 +222,9 @@ resource "aws_instance" "bastion" {
       "Name" = "${local.name_prefix}-bastion"
     }
   )
+  root_block_device {
+    encrypted = var.env == "prod" ? true : false
+}
 }
 
 resource "aws_key_pair" "key2b" {
@@ -292,10 +303,12 @@ resource "aws_security_group" "albsg" {
 resource "aws_launch_configuration" "prod" {
   name_prefix = "prod-"
 image_id = "ami-087c17d1fe0178315" 
-  instance_type = "t3.small"
+  instance_type = "t3.medium"
+  metadata_options {
+  http_tokens = "required"
   key_name = "key2"
 security_groups = [ "${aws_security_group.bastion_sg.id}" ]
-  associate_public_ip_address = true
+  associate_public_ip_address = False
   #user_data = templatefile("${path.module}/install_httpd.sh.tpl"
   #user_data = "${file("data.sh")}"
 lifecycle {
@@ -303,6 +316,7 @@ lifecycle {
   }
    root_block_device {
     encrypted = var.env == "prod" ? true : false
+}
 }
 
 

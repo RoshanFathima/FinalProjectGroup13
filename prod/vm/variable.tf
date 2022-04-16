@@ -1,6 +1,6 @@
 # Instance type
 variable "instance_type" {
-  default     = "t3.small"
+  default     = "t3.medium"
   description = "Type of the instance"
   type        = string
 }
