@@ -46,43 +46,43 @@ module "globalvars" {
 
 
 # Webserver deployment vm1
-resource "aws_instance" "my_amazon" {
-  #count                       = data.terraform_remote_state.network.outputs.private_subnet_id
-  ami                         = data.aws_ami.latest_amazon_linux.id
-  instance_type               = var.instance_type
-  key_name                    = aws_key_pair.key1.key_name
-  subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[0]
-  security_groups             = [aws_security_group.albsg.id, aws_security_group.web_sg.id]
-  associate_public_ip_address = false
-  user_data = templatefile("${path.module}/install_httpd.sh.tpl",
-    {
-      env    = upper(var.env),
-      prefix = upper(local.prefix)
-    }
-  )
+# resource "aws_instance" "my_amazon" {
+#   #count                       = data.terraform_remote_state.network.outputs.private_subnet_id
+#   ami                         = data.aws_ami.latest_amazon_linux.id
+#   instance_type               = var.instance_type
+#   key_name                    = aws_key_pair.key1.key_name
+#   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[0]
+#   security_groups             = [aws_security_group.albsg.id, aws_security_group.web_sg.id]
+#   associate_public_ip_address = false
+#   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
+#     {
+#       env    = upper(var.env),
+#       prefix = upper(local.prefix)
+#     }
+#   )
 
-  root_block_device {
-    encrypted = var.env == "dev" ? true : false
-  }
+#   root_block_device {
+#     encrypted = var.env == "dev" ? true : false
+#   }
 
-  lifecycle {
-    create_before_destroy = true
-  }
+#   lifecycle {
+#     create_before_destroy = true
+#   }
 
-  tags = merge(local.default_tags,
-    {
-      "Name" = "${local.name_prefix}-Amazon-Linux"
-    }
-  )
-}
+#   tags = merge(local.default_tags,
+#     {
+#       "Name" = "${local.name_prefix}-Amazon-Linux"
+#     }
+#   )
+# }
 
 
 
-# Adding SSH key to Amazon EC2
-resource "aws_key_pair" "key1" {
-  key_name   = "key1"
-  public_key = file("/home/ec2-user/environment/GIT/FinalProjectGroup13/dev/dev/vm/key1.pub")
-}
+# # Adding SSH key to Amazon EC2
+# resource "aws_key_pair" "key1" {
+#   key_name   = "key1"
+#   public_key = file("/home/ec2-user/environment/GIT/FinalProjectGroup13/dev/dev/vm/key1.pub")
+# }
 
 
 # Webserver deployment vm2
@@ -257,13 +257,19 @@ resource "aws_security_group" "albsg" {
 #launch config
 resource "aws_launch_configuration" "dev" {
   name_prefix = "dev-"
-image_id = "amzn2-ami-hvm-*-x86_64-gp2" 
+image_id = "ami-0a3c14e1ddbe7f23c" 
   instance_type = "t3.micro"
   key_name = "key2"
-security_groups = [ "${aws_security_group.bastion_sg.id}" ]
+security_groups = [ "${aws_security_group.albsg.id}" ]
   associate_public_ip_address = true
   #user_data = templatefile("${path.module}/install_httpd.sh.tpl"
   #user_data = "${file("data.sh")}"
+   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
+    {
+      env    = upper(var.env),
+      prefix = upper(local.prefix)
+    }
+  )
 lifecycle {
     create_before_destroy = true
   }
@@ -271,8 +277,8 @@ lifecycle {
 
 
 #auto scaling groups
-resource "aws_autoscaling_group" "web" {
-  name = "${aws_launch_configuration.web.name}-asg"
+resource "aws_autoscaling_group" "dev" {
+  name = "${aws_launch_configuration.dev.name}-asg"
   min_size             = 1
   desired_capacity     = 3
   max_size             = 4

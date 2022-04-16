@@ -14,14 +14,14 @@ variable "env" {
 
 variable "my_private_ip" {
   type        = string
-  default     = "172.31.66.253"
+  default     = "172.31.14.196"
   description = "Private IP of my Cloud 9 station to be opened in bastion ingress"
 }
 
 # curl http://169.254.169.254/latest/meta-data/public-ipv4
 variable "my_public_ip" {
   type        = string
-  default     = "18.207.243.183"
+  default     = "18.206.45.120"
   description = "Public IP of my Cloud 9 station to be opened in bastion ingress"
 }
 
