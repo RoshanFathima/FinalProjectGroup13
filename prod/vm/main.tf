@@ -301,6 +301,8 @@ security_groups = [ "${aws_security_group.bastion_sg.id}" ]
 lifecycle {
     create_before_destroy = true
   }
+   root_block_device {
+    encrypted = var.env == "prod" ? true : false
 }
 
 
