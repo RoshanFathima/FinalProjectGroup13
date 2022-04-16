@@ -124,7 +124,7 @@ resource "aws_instance" "my_amazon3" {
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.key3.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[2]
-  security_groups             = [aws_security_group.web_sg.id]
+  security_groups             = [aws_security_group.web_sg.id, aws_security_group.albsg.id]
   associate_public_ip_address = true
   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
     {
