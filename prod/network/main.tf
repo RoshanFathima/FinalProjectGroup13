@@ -1,6 +1,6 @@
 # Module to deploy basic networking 
 module "vpc-prod" {
-  source              = "../../../module2/network"
+  source              = "../../module2/network"
   env                 = var.env
   vpc_cidr            = var.vpc_cidr
   public_subnet_cidrs = var.public_subnet_cidrs
