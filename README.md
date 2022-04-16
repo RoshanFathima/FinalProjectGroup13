@@ -10,9 +10,10 @@ Pre-requisites
 
 
 Instructions
-1.	Create a S3 bucket in the environment.
+1.	Create three S3 buckets in the environment.
 2.	Create a Cloud9 or similar environment having all the packages installed to access AWS environment.
 3.  Run the command = git clone -b master https://github.com/RoshanFathima/FinalProjectGroup13.git
+4.  
 Created four branches named master, prod2, dev & staging. Include branch protection rule and check the following points.
 Require a pull request before merging
 Require status checks to pass before merging
