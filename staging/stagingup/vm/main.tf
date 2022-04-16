@@ -25,9 +25,9 @@ data "terraform_remote_state" "network" { // This is to use Outputs from Remote 
 
 
 # Data source for availability zones in us-east-1
-data "aws_availability_zones" "available" {
- state = "available"
- }
+#data "aws_availability_zones" "available" {
+# state = "available"
+#}
 
 # Define tags locally
 locals {
@@ -72,6 +72,8 @@ resource "aws_instance" "my_amazon" {
   )
 }
 
+
+
 # Adding SSH key to Amazon EC2
 resource "aws_key_pair" "key1" {
   key_name   = "key1"
@@ -110,6 +112,8 @@ resource "aws_instance" "my_amazon2" {
   )
 }
 
+
+
 # Adding SSH key to Amazon EC2
 resource "aws_key_pair" "key2" {
   key_name   = "key2" #local.name_prefix
@@ -124,7 +128,7 @@ resource "aws_instance" "my_amazon3" {
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.key3.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[2]
-  security_groups             = [aws_security_group.web_sg.id, aws_security_group.albsg.id]
+  security_groups             = [aws_security_group.albsg.id,aws_security_group.web_sg.id]
   associate_public_ip_address = true
   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
     {
@@ -148,11 +152,14 @@ resource "aws_instance" "my_amazon3" {
   )
 }
 
+
+
 # Adding SSH key to Amazon EC2
 resource "aws_key_pair" "key3" {
   key_name   = "key3"
   public_key = file("/home/ec2-user/environment/staging/vm/key3.pub")
 }
+
 
 
 # Security Group
@@ -186,13 +193,15 @@ resource "aws_security_group" "web_sg" {
   )
 }
 
+
+
 # Bastion deployment
 resource "aws_instance" "bastion" {
   ami                         = data.aws_ami.latest_amazon_linux.id
   instance_type               = var.instance_type
   key_name                    = aws_key_pair.key2b.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.public_subnet_ids[1]
-  security_groups             = [aws_security_group.bastion_sg.id]
+  security_groups             = [aws_security_group.albsg.id]
   associate_public_ip_address = true
 
 
@@ -285,7 +294,7 @@ resource "aws_launch_configuration" "staging" {
 image_id = "ami-0a3c14e1ddbe7f23c" 
   instance_type = "t3.small"
   key_name = "key2"
-security_groups = [ "${aws_security_group.bastion_sg.id}" ]
+security_groups = [ "${aws_security_group.albsg.id}" ]
   associate_public_ip_address = true
   #user_data = templatefile("${path.module}/install_httpd.sh.tpl"
   #user_data = "${file("data.sh")}"
