@@ -197,7 +197,7 @@ resource "aws_security_group" "web_sg" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["172.31.73.236/32"]
-    ipv6_cidr_blocks = ["::/0"]
+    #ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = merge(local.default_tags,
@@ -263,7 +263,7 @@ resource "aws_security_group" "bastion_sg" {
     to_port          = 0
     protocol         = "-1"
     cidr_blocks      = ["172.31.73.236/32"]
-    ipv6_cidr_blocks = ["::/0"]
+    #ipv6_cidr_blocks = ["::/0"]
   }
 
   tags = merge(local.default_tags,
@@ -291,14 +291,14 @@ resource "aws_security_group" "albsg" {
     from_port   = 443
     to_port     = 443
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["172.31.73.236/32"]
   }
   # SSH access from anywhere
   ingress {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
+    cidr_blocks = ["172.31.73.236/32"]
   }
   # Outbound Rules
   # Internet access to anywhere
