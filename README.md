@@ -21,6 +21,9 @@ Instructions
 8. Upload one image in all of the buckets and create a public URL for it and paste it in "install_httpd.sh.tpl" file.
 9. Run tf plan and then tf apply for whatever enviroment you want to configure.
 10. Once, all the enviroments are configured using above commands, switch to console and deploy the Application Load Balancer. In target groups, put all the webservers in the enviroment. 
+11.	You have now successfully deployed the environment.
+12.	Go to all the folders in Project and run tf destroy to clean up the environment. 
+
 
 
 
