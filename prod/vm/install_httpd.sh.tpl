@@ -22,14 +22,14 @@ echo "<html>
         <th>Fall</th>
     </tr>
     <tr>
-        <td><img src="https://prod-group13.s3.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
-        <td><img src="https://prod-group13.s3.amazonaws.com/ilovedogs.jpg" alt="" border=3 height=200 width=300></img></th>
-        <td><img src="https://prod-group13.s3.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
+        <td><img src="https://prod-group13-prooject.s3.us-east-2.amazonaws.com/ilovecats.jpg alt="" border=3 height=200 width=300></img></th>
+        <td><img src="https://prod-group13-prooject.s3.us-east-2.amazonaws.com/ilovedogs.jpg" alt="" border=3 height=200 width=300></img></th>
+        <td><img src="https://prod-group13-prooject.s3.us-east-2.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
     </tr>
     <tr>
-        <td>><img src="https://prod-group13.s3.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
-        <td><img src="https://prod-group13.s3.amazonaws.com/ilovedogs.jpg" alt="" border=3 height=200 width=300></img></th>
-        <td><img src="https://prod-group13.s3.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
+        <td>><img src="https://prod-group13-prooject.s3.us-east-2.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
+        <td><img src="https://prod-group13-prooject.s3.us-east-2.amazonaws.com/ilovedogs.jpg" alt="" border=3 height=200 width=300></img></th>
+        <td><img src="https://prod-group13-prooject.s3.us-east-2.amazonaws.com/ilovecats.jpg" alt="" border=3 height=200 width=300></img></th>
     </tr>
 </table>
   </body>
