@@ -88,7 +88,7 @@ resource "aws_route_table_association" "private_route_table_association" {
 #Create NAT Gateway
 resource "aws_nat_gateway" "nat-gw" {
   allocation_id = aws_eip.nat-eip.id
-  subnet_id     = aws_subnet.public_subnet[0].id
+  subnet_id     = aws_subnet.public_subnet[1].id
 
   tags = {
     Name = "${var.prefix}-natgw"
@@ -107,11 +107,6 @@ resource "aws_eip" "nat-eip" {
   }
 
 }
-
-
-
-
-
 # Route table to route add default gateway pointing to NAT Gateway (NATGW)
 resource "aws_route_table" "private_route_table" {
   vpc_id = aws_vpc.main.id
