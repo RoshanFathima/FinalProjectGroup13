@@ -81,7 +81,7 @@ resource "aws_instance" "my_amazon" {
 # Adding SSH key to Amazon EC2
 resource "aws_key_pair" "key1" {
   key_name   = "key1"
-  public_key = file("/home/ec2-user/environment/Project/dev/vm/key1.pub")
+  public_key = file("/home/ec2-user/environment/GIT/FinalProjectGroup13/dev/dev/vm/key1.pub")
 }
 
 
@@ -121,7 +121,7 @@ resource "aws_instance" "my_amazon2" {
 # Adding SSH key to Amazon EC2
 resource "aws_key_pair" "key2" {
   key_name   = "key2" #local.name_prefix
-  public_key = file("/home/ec2-user/environment/Project/dev/vm/key2.pub")
+  public_key = file("/home/ec2-user/environment/GIT/FinalProjectGroup13/dev/dev/vm/key2.pub")
 }
 
 
@@ -182,7 +182,7 @@ resource "aws_instance" "bastion" {
 
 resource "aws_key_pair" "key3" {
   key_name   = "key3" #local.name_prefix
-  public_key = file("/home/ec2-user/environment/Project/dev/vm/key2.pub")
+  public_key = file("/home/ec2-user/environment/GIT/FinalProjectGroup13/dev/dev/vm/key2.pub")
 }
 
 # Security Group for Bastion host
