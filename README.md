@@ -1,9 +1,18 @@
 # FinalProjectGroup13
-Lakshay Anand, Nikil Batheja, Raj Kiran Reddy Narala, Roshan Fathima Sahul Hameed
+Lakshay Anand, Nikhil Batheja, Raj Kiran Reddy Narala, Roshan Fathima Sahul Hameed
+
+Pre-requisites
+
+1.	Three S3 bucket for storing terraform state and website images.
+2.	SSH keys for production, staging and development environment.
+3.	Cloud9 or similar environment having all the packages installed to access AWS environment.
+4.  GIT repository with public access and invite collaborators to access the repository
 
 
-**GIT Repo Prerequisites & flow:**
-Created GIT repository with public access and invite collaborators to access the repository.
+Instructions
+1.	Create a S3 bucket in the environment.
+2.	Create a Cloud9 or similar environment having all the packages installed to access AWS environment.
+3.  Run the command = git clone -b master https://github.com/RoshanFathima/FinalProjectGroup13.git
 Created four branches named master, prod2, dev & staging. Include branch protection rule and check the following points.
 Require a pull request before merging
 Require status checks to pass before merging
