@@ -14,7 +14,7 @@ echo "<html>
 
 <table border="5" bordercolor="grey" align="center">
     <tr>
-        <th colspan="3">My Favourite Flowers</th> 
+        <th colspan="3">My Favourite Pets</th> 
     </tr>
     <tr>
         <th>Spring</th>
