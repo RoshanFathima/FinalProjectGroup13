@@ -49,7 +49,7 @@ resource "aws_instance" "my_amazon" {
   key_name                    = aws_key_pair.key1.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[0]
   security_groups             = [aws_security_group.albsg.id,aws_security_group.web_sg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
     {
       env    = upper(var.env),
@@ -89,7 +89,7 @@ resource "aws_instance" "my_amazon2" {
   key_name                    = aws_key_pair.key2.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[1]
   security_groups             = [aws_security_group.web_sg.id, aws_security_group.albsg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
     {
       env    = upper(var.env),
@@ -129,7 +129,7 @@ resource "aws_instance" "my_amazon3" {
   key_name                    = aws_key_pair.key3.key_name
   subnet_id                   = data.terraform_remote_state.network.outputs.private_subnet_id[2]
   security_groups             = [aws_security_group.albsg.id,aws_security_group.web_sg.id]
-  associate_public_ip_address = true
+  associate_public_ip_address = false
   user_data = templatefile("${path.module}/install_httpd.sh.tpl",
     {
       env    = upper(var.env),
